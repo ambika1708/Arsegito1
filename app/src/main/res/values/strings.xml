@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">airprepare</string>
+    <string name="register">REGISTER</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_number">Enter your number</string>
+    <string name="new_password">New password</string>
+    <string name="confrim_password">Confrim password</string>
+    <string name="number_authentication">NUMBER AUTHENTICATION</string>
+    <string name="next">NEXT</string>
+</resources>

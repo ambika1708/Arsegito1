@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1047787559396",
+    "firebase_url": "https://airprepare.firebaseio.com",
+    "project_id": "airprepare",
+    "storage_bucket": "airprepare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047787559396:android:e61dbbf5952dc6435b8ff1",
+        "android_client_info": {
+          "package_name": "com.example.airprepare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047787559396-r4vbv3dn813urggusnffvjevnf892pud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.airprepare",
+            "certificate_hash": "e29408d46f523246ee8abae0b0aed86270b310fb"
+          }
+        },
+        {
+          "client_id": "1047787559396-o2kim6mmo101nlkt93g6nln179379efu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.airprepare",
+            "certificate_hash": "e790f1541d69fb5eac88d10722e109d1ff1e9557"
+          }
+        },
+        {
+          "client_id": "1047787559396-ghj8cqjg5bv2ijnmus0005fq5ji2j8e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApALcC_uN_wng1_kBJY_8-fQ-yrt2DWWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047787559396-ghj8cqjg5bv2ijnmus0005fq5ji2j8e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
