@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="getLocation"
+        android:id="@+id/getLocation"
         android:text="getlocation"/>
 
     <TextView
@@ -38,6 +39,12 @@
         android:onClick="logout"
         android:textColor="#009"/>
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cabs"
+        android:onClick="cabs"/>
 
 
 </LinearLayout>

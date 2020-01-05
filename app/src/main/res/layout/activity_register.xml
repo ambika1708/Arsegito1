@@ -192,9 +192,7 @@
 
         android:ems="10"
 
-        android:hint="confirm password"
-
-        android:inputType="textPassword"
+        android:hint="enter phone number"
 
         app:layout_constraintEnd_toEndOf="parent"
 
