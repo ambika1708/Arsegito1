@@ -2,8 +2,11 @@ package com.example.airprepare;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.Manifest;
@@ -31,6 +34,7 @@ import android.os.Looper;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,6 +59,9 @@ public class Homescreen extends AppCompatActivity {
     private Handler mHandler;
     int count=0;
     android.os.Handler customHandler = new android.os.Handler();
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
 
     @Override
 
@@ -63,11 +70,27 @@ public class Homescreen extends AppCompatActivity {
         int welcome_time = 5000;
         setContentView(R.layout.activity_homescreen);
 
-        tv = findViewById(R.id.textViewlocation);
 
         ngetlocation = findViewById(R.id.getLocation);
         customHandler.postDelayed(updateTimerThread,0);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 
@@ -108,7 +131,6 @@ public class Homescreen extends AppCompatActivity {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             try {
                 String city = location1(location.getLatitude(), location.getLongitude());
-                tv.setText(city);
                 cur_city = city;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -163,27 +185,6 @@ public class Homescreen extends AppCompatActivity {
     }
 
 
-    public void cabs(View view) {
-
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.olacabs.customer");
-        if (launchIntent != null)
-            startActivity(launchIntent);
-        else {
-            Uri uri = Uri.parse("https://www.olacabs.com/");
-            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-
-            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            try {
-                startActivity(goToMarket);
-            } catch (ActivityNotFoundException e) {
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=com.olacabs.customer")));
-            }
-
-        }
-    }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
@@ -200,9 +201,25 @@ public class Homescreen extends AppCompatActivity {
         {
             ngetlocation.performClick();
             //write here whaterver you want to repeat
-            customHandler.postDelayed(this, 600000);
+            customHandler.postDelayed(this, 60000);
         }
     };
 
 
+    public void cabs(View view) {
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.olacabs.customer");
+        if (launchIntent != null)
+            startActivity(launchIntent);
+        else {
+
+            String URL = "https://www.olacabs.com/";
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            builder.addDefaultShareMenuItem();
+            customTabsIntent.launchUrl(this, Uri.parse(URL));
+
+
+
+        }
+    }
 }
