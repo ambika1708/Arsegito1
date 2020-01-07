@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_acc"
+        android:title="Help"/>
+    <item android:id="@+id/nav_acc1"
+        android:title="About"/>
+    <item android:id="@+id/nav_acc2"
+        android:title="Give Rating"/>
+    <item android:id="@+id/nav_acc3"
+        android:title="Settings"/>
+    <item android:id="@+id/nav_acc4"
+        android:title="Log Out"/>
+</menu>
