@@ -97,7 +97,7 @@
                 android:id="@+id/button8"
                 android:layout_width="80sp"
                 android:layout_height="80sp"
-                android:background="@mipmap/restaurent"/>
+                android:background="@mipmap/restaurants" />
 
 
             <Button
@@ -105,7 +105,7 @@
                 android:onClick="cabs"
                 android:layout_width="80sp"
                 android:layout_height="80sp"
-                android:background="@drawable/taxi"
+                android:background="@mipmap/cabs"
                 />
 
             <Button
@@ -118,19 +118,19 @@
                 android:id="@+id/button4"
                 android:layout_width="80sp"
                 android:layout_height="80sp"
-                android:background="@drawable/tourism" />
+                android:background="@mipmap/tourism" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="80sp"
                 android:layout_height="80sp"
-                android:background="@drawable/shopping"/>
+                android:background="@mipmap/applogo" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Restaurent         Cab             Rooms        Tourism       Shopping "
+            android:text="Restaurent             Cab             Rooms        Tourism       Shopping "
             android:textStyle="bold" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,7 +150,7 @@
             <Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
-                android:layout_height="87sp"
+                android:layout_height="80sp"
                 android:background="@mipmap/hosp"/>
 
             <Button
@@ -176,12 +176,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="     Metro           Hospitals         Police            ATM           Airport "
+            android:text="     Metro           Hospitals         Police               ATM           Airport "
             android:textStyle="bold"/>
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="                                                                                              Assist"
+    android:text="                                                                                                  Assist"
     android:textStyle="bold"/>
         <TextView
             android:layout_width="wrap_content"
@@ -201,19 +201,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10sp"
             android:text="Preferences"
-            android:textStyle="bold"
             android:textColor="#000"
             android:textSize="20sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginStart="10sp"
-            />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="3" />
+            android:textStyle="bold" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
