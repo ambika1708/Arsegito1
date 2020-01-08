@@ -13,7 +13,6 @@
     tools:context=".numberauthentication">
 
 
-
     <EditText
 
         android:id="@+id/numbera"
@@ -34,7 +33,7 @@
 
         android:ems="10"
 
-        android:hint="@string/enter_your_number"
+        android:hint="enter mobile number"
 
         android:inputType="textPersonName"
 
@@ -68,7 +67,7 @@
 
         android:textColor="#12AB12"
 
-        android:textSize="30sp"
+        android:textSize="20sp"
 
         app:layout_constraintEnd_toEndOf="parent"
 

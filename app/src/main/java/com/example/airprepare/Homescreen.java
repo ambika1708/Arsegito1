@@ -1,67 +1,59 @@
 package com.example.airprepare;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.app.NotificationCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-
 import android.Manifest;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-
 import android.content.Intent;
-
-import android.content.SharedPreferences;
-
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
 import android.os.Handler;
-import android.os.Looper;
 import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.app.NotificationCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.content.Context.LOCATION_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 
-public class Homescreen extends AppCompatActivity {
+public class Homescreen extends AppCompatActivity{
 
     TextView tv;
+    public Toolbar toolbar;
     public Button ngetlocation;
     public String cur_city;
     private Runnable mStatusChecker;
     private Handler mHandler;
-    int count=0;
+    int count = 0;
     android.os.Handler customHandler = new android.os.Handler();
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
-
+    private Runnable updateTimerThread = new Runnable() {
+        public void run() {
+            ngetlocation.performClick();
+            //write here whaterver you want to repeat
+            customHandler.postDelayed(this, 60000);
+        }
+    };
 
     @Override
 
@@ -69,30 +61,29 @@ public class Homescreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         int welcome_time = 5000;
         setContentView(R.layout.activity_homescreen);
-
+        AnimationDrawable animationDrawable = new AnimationDrawable();
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.floods),5000);
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.elections),5000);
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.bundh),5000);
+        animationDrawable.setOneShot(false);
+        ImageView imageView=(ImageView)findViewById(R.id.newsimage);
+        imageView.setBackgroundDrawable(animationDrawable);
+        animationDrawable.start();
 
         ngetlocation = findViewById(R.id.getLocation);
-        customHandler.postDelayed(updateTimerThread,0);
+        customHandler.postDelayed(updateTimerThread, 0);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open,R.string.drawer_close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         actionBarDrawerToggle.syncState();
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
 
 
     public void logout(View view) {
@@ -100,26 +91,12 @@ public class Homescreen extends AppCompatActivity {
         startActivity(intent1);
     }
 
-    private String location1(double lat, double lon) {
-        String cityname = "";
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(lat, lon, 10);
-            if (addresses.size() > 0) {
-                for (Address adr : addresses) {
-                    if (adr.getLocality() != null && adr.getLocality().length() > 0) {
-                        cityname = adr.getLocality()+"count="+String.valueOf(count);
-                        count++;
+   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-                        break;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
-        return cityname;
+        return super.onOptionsItemSelected(item);
     }
 
     public void getLocation(View view) {
@@ -185,7 +162,6 @@ public class Homescreen extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -195,16 +171,28 @@ public class Homescreen extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
     }
-    private Runnable updateTimerThread = new Runnable()
-    {
-        public void run()
-        {
-            ngetlocation.performClick();
-            //write here whaterver you want to repeat
-            customHandler.postDelayed(this, 60000);
-        }
-    };
 
+    private String location1(double lat, double lon) {
+        String cityname = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(lat, lon, 10);
+            if (addresses.size() > 0) {
+                for (Address adr : addresses) {
+                    if (adr.getLocality() != null && adr.getLocality().length() > 0) {
+                        cityname = adr.getLocality() + "count=" + String.valueOf(count);
+                        count++;
+
+                        break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cityname;
+    }
 
     public void cabs(View view) {
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.olacabs.customer");
@@ -219,7 +207,18 @@ public class Homescreen extends AppCompatActivity {
             customTabsIntent.launchUrl(this, Uri.parse(URL));
 
 
-
         }
     }
+
+   /* @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        menuItem.setCheckable(true);
+        int id = menuItem.getItemId();
+        if (id == R.id.nav_acc) {
+            Intent i1 = new Intent(this, Help.class);
+            startActivity(i1);
+        }
+        drawerLayout.closeDrawers();
+        return true;
+    }*/
 }

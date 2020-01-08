@@ -36,6 +36,8 @@
 
         android:hint="Enter OTP"
 
+        android:background="#7CF700"
+
         android:inputType="textPersonName"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +66,7 @@
 
         android:layout_marginRight="8dp"
 
-        android:background="#1212AB"
+        android:background="#00EEEE"
 
         android:text="Verify"
 
@@ -98,7 +100,7 @@
 
         android:text="VERIFICATION"
 
-        android:textColor="#1212AB"
+        android:textColor="#7CF700"
 
         android:textSize="30sp"
 
