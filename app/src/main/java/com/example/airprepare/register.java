@@ -50,7 +50,6 @@ public class register extends AppCompatActivity {
 
     public void Openloginpage(View view) {
 
-        addmember();
         Intent intent = new Intent(register.this,Homescreen.class);
         startActivity(intent);
 

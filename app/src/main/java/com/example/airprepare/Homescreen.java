@@ -14,7 +14,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -161,16 +160,6 @@ public class Homescreen extends AppCompatActivity{
 
     }
 
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 
     private String location1(double lat, double lon) {
         String cityname = "";

@@ -18,22 +18,23 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo12"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Help"></activity>
+        <activity android:name=".Empty"></activity>
+        <activity android:name=".Help" />
         <activity android:name=".GoogleServices" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".TicketNumber" />
         <activity android:name=".Data_entry_cities" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Homescreen" />
         <activity android:name=".OTPactivity" />
         <activity android:name=".numberauthentication" />
         <activity android:name=".register" />
         <activity
-            android:name=".Homescreen"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
