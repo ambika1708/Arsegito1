@@ -1,9 +1,7 @@
 package com.example.airprepare;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -14,14 +12,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static androidx.core.app.ActivityCompat.requestDragAndDropPermissions;
-import static androidx.core.app.ActivityCompat.requestPermissions;
 
 /**
  * Created by deepshikha on 24/11/16.
@@ -81,7 +75,7 @@ public class GoogleServices extends Service implements LocationListener {
     }
 
     private void fn_getlocation() {
-        String string[] = new String[]{ACCESS_FINE_LOCATION};
+        String[] string = new String[]{ACCESS_FINE_LOCATION};
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);

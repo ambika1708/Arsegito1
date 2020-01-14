@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 
 
 public class register extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class register extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-        databasemember= FirebaseDatabase.getInstance().getReference("members");
+        databasemember = FirebaseDatabase.getInstance().getReference();
 
         eemail=findViewById(R.id.emailr);
 
@@ -49,17 +50,14 @@ public class register extends AppCompatActivity {
 
 
     public void Openloginpage(View view) {
+        addmember();
 
         Intent intent = new Intent(register.this,Homescreen.class);
         startActivity(intent);
 
-
-
     }
 
     private void addmember(){
-
-        String name=ename.getText().toString().trim();
 
         String email=eemail.getText().toString().trim();
 
@@ -70,14 +68,13 @@ public class register extends AppCompatActivity {
         String a=number+"@gmail.cc";
 
 
-
-        if(!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(email)) {
 
             String id= databasemember.push().getKey();
 
-            Insert insert=new Insert(id,a,name,email,password);
+            Insert insert = new Insert(id, a, email, password);
 
-            databasemember.child(firebaseAuth.getUid()).setValue(insert);
+            databasemember.child(Objects.requireNonNull(firebaseAuth.getUid())).setValue(insert);
 
             Toast.makeText(this, "REGISTRATION SUCCESS", Toast.LENGTH_SHORT).show();
 

@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        createaccountb = (Button) findViewById(R.id.createaccountb);
+        createaccountb = findViewById(R.id.createaccountb);
 
-        number = (EditText) findViewById(R.id.number);
+        number = findViewById(R.id.number);
 
-        password = (EditText) findViewById(R.id.password);
+        password = findViewById(R.id.password);
 
-        login = (Button) findViewById(R.id.signinb);
+        login = findViewById(R.id.signinb);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -104,16 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences sharedPreferences = getSharedPreferences("Data",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("mbno",number.getText().toString());
-        editor.putString("pass",password.getText().toString());
-        editor.commit();
-        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
-    }
 
     public void Opennunberactivity(View view) {
 

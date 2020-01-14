@@ -1,24 +1,17 @@
 package com.example.airprepare;
 
 
-
-import android.widget.EditText;
-
-
-
 public class Insert {
 
-    String name;
+    public String email;
 
-    String email;
+    public String password;
 
-    String password;
+    public String id;
 
-    String id;
+    public String number;
 
-    String number;
-
-    public  Insert(){
+    public Insert(String id, String a, String email, String password) {
 
     }
 
@@ -30,19 +23,9 @@ public class Insert {
 
         this.number=number;
 
-        this.name=name;
-
         this.email=email;
 
         this.password=password;
-
-    }
-
-
-
-    public String getName() {
-
-        return name;
 
     }
 
