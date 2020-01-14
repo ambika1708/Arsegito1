@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">airprepare</string>
+    <string name="app_name">Ar Segito</string>
     <string name="register">REGISTER</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="enter_your_email">Enter your email</string>
@@ -10,4 +10,11 @@
     <string name="next">NEXT</string>
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
+    <string name="preferences">Preferences</string>
+    <string name="Search">search</string>
+    <string name="secondline">Metro Hospitals Police ATM Airport</string>
+    <string name="thirdline">Assist</string>
+    <string name="firstline">Restaurants Cab Rooms Tourism Shopping</string>
+    <string name="news_feed">News Feed</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

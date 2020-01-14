@@ -147,7 +147,7 @@
 
         android:background="#F57C00"
 
-        android:text="create_account"
+        android:text="create account"
 
         android:onClick="Opennunberactivity"
 
@@ -185,7 +185,7 @@
 
         app:layout_constraintTop_toTopOf="parent"
 
-        app:srcCompat="@mipmap/applogo" />
+        app:srcCompat="@drawable/app_logo" />
 
 
 
