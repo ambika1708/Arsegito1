@@ -3,7 +3,6 @@ package com.example.airprepare;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,11 +13,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,15 +27,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import me.relex.circleindicator.CircleIndicator;
 
 
-public class Homescreen extends AppCompatActivity{
+public class Homescreen<CirclePageIndicator> extends AppCompatActivity {
     public int i = 0, t = 0;
     public String str, loc;
     TextView tv;
@@ -56,26 +60,46 @@ public class Homescreen extends AppCompatActivity{
     };
     String[] news;
     Runnable updateText;
+    public ViewPager viewPager;
+    CircleIndicator circleIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        floatingActionButton = findViewById(R.id.fab);
-        tvnews = findViewById(R.id.newstext);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
         AnimationDrawable animationDrawable = new AnimationDrawable();
-        animationDrawable.addFrame(getResources().getDrawable(R.drawable.floods),5000);
-        animationDrawable.addFrame(getResources().getDrawable(R.drawable.elections),5000);
-        animationDrawable.addFrame(getResources().getDrawable(R.drawable.bundh),5000);
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.floods), 5000);
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.elections), 5000);
+        animationDrawable.addFrame(getResources().getDrawable(R.drawable.bundh), 5000);
         animationDrawable.setOneShot(false);
-        ImageView imageView = findViewById(R.id.newsimage);
-        imageView.setBackgroundDrawable(animationDrawable);
         animationDrawable.start();
+        viewPager = findViewById(R.id.viewpager);
+        ImageAdapter adapter = new ImageAdapter(this);
+        viewPager.setAdapter(adapter);
+        circleIndicator = findViewById(R.id.indicator);
+        circleIndicator.setViewPager(viewPager);
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (i == 3) {
+                    i = 0;
+                }
+                viewPager.setCurrentItem(i++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
 
         ngetlocation = findViewById(R.id.getLocation);
         customHandler.postDelayed(updateTimerThread, 0);
         drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open,R.string.drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
@@ -92,7 +116,7 @@ public class Homescreen extends AppCompatActivity{
         startActivity(intent1);
     }
 
-   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -164,8 +188,7 @@ public class Homescreen extends AppCompatActivity{
             Toast.makeText(getApplicationContext(),
                     "SMS faild, please try again.", Toast.LENGTH_LONG).show();
         }
-        }
-
+    }
 
 
     private String location1(double lat, double lon) {
@@ -179,7 +202,10 @@ public class Homescreen extends AppCompatActivity{
                     if (adr.getLocality() != null && adr.getLocality().length() > 0) {
                         cityname = adr.getLocality() + "count=" + count;
                         count++;
-                        loc = "http://maps.google.com/maps?saddr=" + lat + "," + lon + "\n" + adr.getPremises() + "\n" + adr.getFeatureName() + "\n" + adr.getSubLocality() + "\n" + adr.getLocality() + "\n" + adr.getSubAdminArea() + "\n" + adr.getAdminArea() + "\n" + adr.getCountryName();
+                        List<Address> list = geocoder.getFromLocation(lat, lon, 1);
+                        Address address = list.get(0);
+                        loc = address.getAddressLine(0);
+                        loc = loc + "http://maps.google.com/maps?saddr=" + lat + "," + lon + "\n" + adr.getPremises() + "\n" + adr.getFeatureName() + "\n" + adr.getSubLocality() + "\n" + adr.getLocality() + "\n" + adr.getSubAdminArea() + "\n" + adr.getAdminArea() + "\n" + adr.getCountryName();
                         break;
                     }
                 }
@@ -240,40 +266,11 @@ public class Homescreen extends AppCompatActivity{
         }
     }
 
-    public void setFloatingActionButton(FloatingActionButton floatingActionButton) {
-        this.floatingActionButton = floatingActionButton;
+
+    public void Sms(View view) {
+        Toast.makeText(this, "SMS", Toast.LENGTH_SHORT).show();
     }
-
-
-    public void Emergency(View view) {
-        floatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(Homescreen.this, "Emergency", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        Toast.makeText(this, "Emegency2", Toast.LENGTH_SHORT).show();
-        sendSMSMessage();
-
-    }
-
-    protected void sendSMSMessage() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-        if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 100);
-        } else {
-
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage("+919848833207", null, loc, null, null);
-            Toast.makeText(getApplicationContext(), "SMS sent.",
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-/* @Override
+    /* @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setCheckable(true);
         int id = menuItem.getItemId();
@@ -284,5 +281,4 @@ public class Homescreen extends AppCompatActivity{
         drawerLayout.closeDrawers();
         return true;
     }*/
-
 }

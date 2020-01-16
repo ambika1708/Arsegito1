@@ -122,19 +122,21 @@
                     android:id="@+id/button4"
                     android:layout_width="80sp"
                     android:layout_height="80sp"
-                    android:background="@mipmap/tourism" />
+                    android:background="@mipmap/tourism"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/button5"
                     android:layout_width="80sp"
                     android:layout_height="80sp"
-                    android:background="@mipmap/applogo" />
+                    android:background="@mipmap/applogo"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/firstline"
+                android:text="Restaurants        Cabs            Rooms         Tourism          Shopping"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -147,7 +149,8 @@
                     android:id="@+id/getLocation"
                     android:layout_width="80sp"
                     android:layout_height="80sp"
-                    android:background="@mipmap/metro" />
+                    android:background="@mipmap/metro"
+                    android:onClick="Sms" />
 
                 <Button
                     android:id="@+id/button7"
@@ -176,7 +179,8 @@
                     android:layout_height="80sp"
                     android:layout_weight="1"
                     android:background="@mipmap/assist_round"
-                    android:onClick="getLocation" />
+                    android:onClick="getLocation"
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <TextView
@@ -184,13 +188,13 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/secondline"
+                android:text="Metro                 Hospitals         Police              ATMs           Airport"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/thirdline"
+                android:text="                                                                                                       Assist"
                 android:textStyle="bold" />
 
             <TextView
@@ -203,33 +207,16 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/newsimage"
+            <androidx.viewpager.widget.ViewPager
                 android:layout_width="match_parent"
-                android:layout_height="150sp"
-                android:contentDescription="@string/app_name" />
+                android:id="@+id/viewpager"
+                android:layout_height="200dp" />
 
-
-            <TextView
-                android:id="@+id/newstext"
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="10sp"
-                android:text="@string/preferences"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="55sp"
-                android:longClickable="true"
-                android:onClick="Emergency"
-                android:src="@drawable/emergeny" />
+                android:layout_height="40dp"
+                app:ci_drawable="@drawable/indicator" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

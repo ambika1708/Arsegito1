@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,7 +26,9 @@ public class register extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
+    FirebaseUser user;
 
+    String userId;
 
     @Override
 
@@ -42,9 +45,6 @@ public class register extends AppCompatActivity {
         epassword=findViewById(R.id.passwordr);
 
         firebaseAuth=FirebaseAuth.getInstance();
-
-
-
     }
 
 
@@ -65,7 +65,7 @@ public class register extends AppCompatActivity {
 
         String number=getIntent().getStringExtra("number");
 
-        String a=number+"@gmail.cc";
+        String a = number + "";
 
 
         if (!TextUtils.isEmpty(email)) {
