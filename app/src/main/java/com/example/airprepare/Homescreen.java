@@ -1,12 +1,12 @@
 package com.example.airprepare;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,7 +15,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,14 +42,12 @@ import java.util.TimerTask;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class Homescreen<CirclePageIndicator> extends AppCompatActivity {
-    public int i = 0, t = 0;
-    public String str, loc;
+public class Homescreen extends AppCompatActivity {
+    public int i = 0;
+    public String loc;
     TextView tv;
-    TextView tvnews;
     public Button ngetlocation;
     public String cur_city;
-    FloatingActionButton floatingActionButton;
     int count = 0;
     android.os.Handler customHandler = new android.os.Handler();
     DrawerLayout drawerLayout;
@@ -58,21 +58,20 @@ public class Homescreen<CirclePageIndicator> extends AppCompatActivity {
             customHandler.postDelayed(this, 60000);
         }
     };
-    String[] news;
-    Runnable updateText;
     public ViewPager viewPager;
     CircleIndicator circleIndicator;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homescreen);
+        setContentView(R.layout.activity_homescreen);/*
         AnimationDrawable animationDrawable = new AnimationDrawable();
         animationDrawable.addFrame(getResources().getDrawable(R.drawable.floods), 5000);
         animationDrawable.addFrame(getResources().getDrawable(R.drawable.elections), 5000);
         animationDrawable.addFrame(getResources().getDrawable(R.drawable.bundh), 5000);
         animationDrawable.setOneShot(false);
-        animationDrawable.start();
+        animationDrawable.start();*/
         viewPager = findViewById(R.id.viewpager);
         ImageAdapter adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -87,13 +86,46 @@ public class Homescreen<CirclePageIndicator> extends AppCompatActivity {
                 viewPager.setCurrentItem(i++, true);
             }
         };
+        final GestureDetector fab = new GestureDetector(this, new fab1());
+        final GestureDetector tapGestureDetector = new GestureDetector(this, new TapGestureListener());
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(Homescreen.this, "Hello", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (tapGestureDetector.onTouchEvent(event))
+                    Toast.makeText(Homescreen.this, "Welcome", Toast.LENGTH_SHORT).show();
+                else {
+                    if (viewPager.getCurrentItem() == 0) {
+                        Toast.makeText(Homescreen.this, "pressed 1", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(Homescreen.this, "pressed 2", Toast.LENGTH_SHORT).show();
+                }
+                if (tapGestureDetector.onGenericMotionEvent(event)) {
+                    Toast.makeText(Homescreen.this, "Clicked", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+
+        });
+        viewPager.setFadingEdgeLength(200);
+        viewPager.setPageTransformer(false, new PageTransformer());
+        viewPager.setPageMargin(20);
+        viewPager.setClipToPadding(false);
+        viewPager.setPadding(80, 20, 80, 20);
+
         Timer swipeTimer = new Timer();
         swipeTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(Update);
             }
-        }, 3000, 3000);
+        }, 10000, 10000);
 
 
         ngetlocation = findViewById(R.id.getLocation);
@@ -269,6 +301,26 @@ public class Homescreen<CirclePageIndicator> extends AppCompatActivity {
 
     public void Sms(View view) {
         Toast.makeText(this, "SMS", Toast.LENGTH_SHORT).show();
+    }
+
+    public void sendlocationSms() {
+        if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+
+        } else {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage("+919848833207", null, loc, null, null);
+            Toast.makeText(getApplicationContext(), "SMS sent.",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void imageslider1(View view) {
+        if (viewPager.getCurrentItem() == 0)
+            Toast.makeText(this, "pressed 1", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "pressed 2", Toast.LENGTH_SHORT).show();
     }
     /* @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
