@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -166,8 +167,9 @@ public class OTPactivity extends AppCompatActivity {
             Intent p = new Intent(OTPactivity.this,numberauthentication.class);
             startActivity(p);
             Toast.makeText(OTPactivity.this, "please enable internet connection", Toast.LENGTH_SHORT).show();
-
-
+            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                Toast.makeText(OTPactivity.this, "enable your internet connection", Toast.LENGTH_SHORT).show();
+            }
 
         }
 

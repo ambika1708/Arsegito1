@@ -26,12 +26,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +46,7 @@ import java.util.TimerTask;
 import me.relex.circleindicator.CircleIndicator;
 
 
-public class Homescreen extends AppCompatActivity {
+public class Homescreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public int i = 0;
     public String loc;
     TextView tv;
@@ -51,6 +55,9 @@ public class Homescreen extends AppCompatActivity {
     int count = 0;
     android.os.Handler customHandler = new android.os.Handler();
     DrawerLayout drawerLayout;
+    NavigationView nav_draw;
+    NavController navController;
+    Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
@@ -72,6 +79,13 @@ public class Homescreen extends AppCompatActivity {
         animationDrawable.addFrame(getResources().getDrawable(R.drawable.bundh), 5000);
         animationDrawable.setOneShot(false);
         animationDrawable.start();*/
+
+        // Set a Toolbar to replace the ActionBar.
+
+
+
+
+
         viewPager = findViewById(R.id.viewpager);
         ImageAdapter adapter = new ImageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -130,16 +144,28 @@ public class Homescreen extends AppCompatActivity {
 
         ngetlocation = findViewById(R.id.getLocation);
         customHandler.postDelayed(updateTimerThread, 0);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
-        actionBarDrawerToggle.syncState();
+        toolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+
+        nav_draw = findViewById(R.id.nvView);
+        nav_draw.setNavigationItemSelectedListener(this);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+            nav_draw.setCheckedItem(R.id.first);
+        }
     }
 
 
@@ -148,13 +174,7 @@ public class Homescreen extends AppCompatActivity {
         startActivity(intent1);
     }
 
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void getLocation(View view) {
 
@@ -322,7 +342,42 @@ public class Homescreen extends AppCompatActivity {
         else
             Toast.makeText(this, "pressed 2", Toast.LENGTH_SHORT).show();
     }
-    /* @Override
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_acc1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new AboutFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_acc:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HelpFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_acc3:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new SetFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.first:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+                nav_draw.setCheckedItem(R.id.first);
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    /*  @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setCheckable(true);
         int id = menuItem.getItemId();

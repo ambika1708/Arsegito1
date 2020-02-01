@@ -6,42 +6,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/drawer_layout">
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/drawerLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/navigation_drawer_header"
-        android:layout_gravity="start"
-        app:menu="@menu/navigation_menu"
-        />
+    android:id="@+id/drawer_layout"
+    tools:openDrawer="start">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="205dp">
+
+        <!-- The ActionBar displayed at the top -->
+
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!-- The main content view where fragments are loaded -->
+        <FrameLayout
+            android:id="@+id/flContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="65dp"
-            tools:layout_editor_absoluteY="205dp">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#6ACDE6"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="65dp"
+                tools:layout_editor_absoluteY="205dp">
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="56sp"
-                    android:layout_height="36sp"
-                    android:layout_marginTop="5sp" />
+                <!-- The ActionBar displayed at the top -->
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#5DD5E4"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="56sp"
+                        android:layout_height="36sp"
+                        android:layout_marginTop="5sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#6ACDE6"
+                        android:background="#5DD5E4"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -64,139 +79,149 @@
 
                     </LinearLayout>
 
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70sp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button8"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/restaurants" />
+
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="80sp"
+                        android:layout_height="84dp"
+                        android:background="@mipmap/cabs"
+                        android:onClick="cabs" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/rooms"
+                        android:onClick="rooms" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/tourism"
+                        tools:ignore="ButtonStyle" />
+
+                    <Button
+                        android:id="@+id/button5"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/applogo"
+                        tools:ignore="ButtonStyle" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Restaurants        Cabs            Rooms         Tourism          Shopping"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70sp"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/getLocation"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/metro"
+                        android:onClick="Sms" />
+
+                    <Button
+                        android:id="@+id/button7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/hosp"
+                        android:onClick="hospitals" />
+
+                    <Button
+                        android:id="@+id/button9"
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/police"
+                        android:onClick="police" />
+
+                    <Button
+                        android:id="@+id/button10"
+                        style=""
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:background="@mipmap/atm" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="0dp"
+                        android:layout_height="80sp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/assist_round"
+                        android:onClick="getLocation"
+                        tools:ignore="ButtonStyle" />
+                </LinearLayout>
+
+                <TextView
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Metro                 Hospitals         Police              ATMs           Airport"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="                                                                                                       Assist"
+                    android:textStyle="bold" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clickable="true"></androidx.viewpager.widget.ViewPager>
+
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:ci_drawable="@drawable/indicator" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button8"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/restaurants" />
-
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="80sp"
-                    android:layout_height="84dp"
-                    android:background="@mipmap/cabs"
-                    android:onClick="cabs" />
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/rooms"
-                    android:onClick="rooms" />
-
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/tourism"
-                    tools:ignore="ButtonStyle" />
-
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/applogo"
-                    tools:ignore="ButtonStyle" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Restaurants        Cabs            Rooms         Tourism          Shopping"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:orientation="horizontal">
-
-
-                <Button
-                    android:id="@+id/getLocation"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/metro"
-                    android:onClick="Sms" />
-
-                <Button
-                    android:id="@+id/button7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/hosp"
-                    android:onClick="hospitals" />
-
-                <Button
-                    android:id="@+id/button9"
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/police"
-                    android:onClick="police" />
-
-                <Button
-                    android:id="@+id/button10"
-                    style=""
-                    android:layout_width="80sp"
-                    android:layout_height="80sp"
-                    android:background="@mipmap/atm" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="0dp"
-                    android:layout_height="80sp"
-                    android:layout_weight="1"
-                    android:background="@mipmap/assist_round"
-                    android:onClick="getLocation"
-                    tools:ignore="ButtonStyle" />
-            </LinearLayout>
-
-            <TextView
-
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Metro                 Hospitals         Police              ATMs           Airport"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="                                                                                                       Assist"
-                android:textStyle="bold" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="250dp">
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:clickable="true"></androidx.viewpager.widget.ViewPager>
-
-            </FrameLayout>
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/indicator"
-
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:ci_drawable="@drawable/indicator" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginTop="570dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/emergency1" />
-        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nvView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_drawer_header"
+        app:itemIconTint="#000"
+        app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
+

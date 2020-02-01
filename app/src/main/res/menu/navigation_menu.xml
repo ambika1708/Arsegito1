@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/first"
+        android:icon="@drawable/home"
+        android:title="Home" />
     <item android:id="@+id/nav_acc"
+        android:icon="@drawable/help"
         android:title="Help"/>
     <item android:id="@+id/nav_acc1"
+        android:icon="@drawable/about"
         android:title="About"/>
     <item android:id="@+id/nav_acc2"
+        android:icon="@drawable/rate"
         android:title="Give Rating"/>
     <item android:id="@+id/nav_acc3"
+        android:icon="@drawable/setting"
         android:title="Settings"/>
     <item android:id="@+id/nav_acc4"
+        android:icon="@drawable/exit"
         android:title="Log Out"/>
 </menu>
