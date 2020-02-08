@@ -12,7 +12,7 @@
         android:title="About"/>
     <item android:id="@+id/nav_acc2"
         android:icon="@drawable/rate"
-        android:title="Give Rating"/>
+        android:title="Rate It and feedback" />
     <item android:id="@+id/nav_acc3"
         android:icon="@drawable/setting"
         android:title="Settings"/>

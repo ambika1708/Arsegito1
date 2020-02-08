@@ -4,6 +4,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context=".MainActivity">
 
 
@@ -102,7 +103,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Restaurants        Cabs            Rooms         Tourism          Shopping"
+            android:text="Restaurants      Cabs            Rooms         Tourism      Shopping"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -154,13 +155,13 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Metro                 Hospitals         Police              ATMs           Airport"
+            android:text="Metro              Hospitals         Police             ATMs          Airport"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="                                                                                                       Assist"
+            android:text="                                                                                               Assist"
             android:textStyle="bold" />
 
         <FrameLayout

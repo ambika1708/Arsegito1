@@ -2,9 +2,11 @@ package com.example.airprepare;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -31,7 +33,6 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,7 +57,6 @@ public class Homescreen extends AppCompatActivity implements NavigationView.OnNa
     android.os.Handler customHandler = new android.os.Handler();
     DrawerLayout drawerLayout;
     NavigationView nav_draw;
-    NavController navController;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
     private Runnable updateTimerThread = new Runnable() {
@@ -319,6 +319,7 @@ public class Homescreen extends AppCompatActivity implements NavigationView.OnNa
     }
 
 
+
     public void Sms(View view) {
         Toast.makeText(this, "SMS", Toast.LENGTH_SHORT).show();
     }
@@ -370,6 +371,27 @@ public class Homescreen extends AppCompatActivity implements NavigationView.OnNa
             case R.id.first:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
                 nav_draw.setCheckedItem(R.id.first);
+                break;
+            case R.id.nav_acc4:
+                new AlertDialog.Builder(this)
+                        .setMessage("Are you sure you want to log out Ar Segito?")
+                        .setPositiveButton("Yes,Log out", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Intent i = new Intent(Homescreen.this, Userlogin.class);
+                                startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.nav_acc2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new RateFragment()).addToBackStack(null).commit();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

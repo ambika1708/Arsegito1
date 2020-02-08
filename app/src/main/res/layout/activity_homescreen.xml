@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <!-- The main content view where fragments are loaded -->
+
         <FrameLayout
             android:id="@+id/flContent"
             android:layout_width="match_parent"
@@ -125,7 +126,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Restaurants        Cabs            Rooms         Tourism          Shopping"
+                    android:text="Restaurants      Cabs            Rooms         Tourism      Shopping"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -177,20 +178,22 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Metro                 Hospitals         Police              ATMs           Airport"
+                    android:text="Metro              Hospitals         Police             ATMs          Airport"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="                                                                                                       Assist"
+                    android:text="                                                                                               Assist"
                     android:textStyle="bold" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:clickable="true"></androidx.viewpager.widget.ViewPager>
+                    android:clickable="true">
+
+                </androidx.viewpager.widget.ViewPager>
 
 
                 <me.relex.circleindicator.CircleIndicator
@@ -211,9 +214,11 @@
                 android:layout_marginRight="20dp"
                 android:src="@drawable/emergency1" />
 
+
         </FrameLayout>
 
     </LinearLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nvView"
@@ -223,5 +228,6 @@
         app:headerLayout="@layout/navigation_drawer_header"
         app:itemIconTint="#000"
         app:menu="@menu/navigation_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
 
